@@ -1,0 +1,22 @@
+services:
+  proxy:
+    image: traefik:latest
+    container_name: proxy
+    restart: always
+    user: root
+    security_opt:
+      - label=type:container_runtime_t
+    ports:
+      - 0.0.0.0:80:80
+      # - 10443:10443
+      - 8080:8080
+    volumes:
+      - /run/user/1000/podman/podman.sock:/var/run/docker.sock
+    command:
+      - "--api.insecure=true"
+      - --providers.docker=true
+      - --providers.docker.defaultRule=Host(`{{ .ContainerName }}.eqr.lan`)
+      - "--entrypoints.web.address=:80"
+      - "--log.level=DEBUG"
+    labels:
+      - traefik.enable=false

@@ -1,0 +1,7 @@
+include:
+  - ./cloudflareTunnel.yml
+  - ./vpn.yml
+  - ./proxy.yml
+  - ./jellyfin.yml
+  - ./downloader.yml
+  - ./arr.yml

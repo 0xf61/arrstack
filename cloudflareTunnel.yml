@@ -1,0 +1,13 @@
+services:
+  cloudflareTunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflareTunnel
+    restart: always
+    command:
+      - "tunnel"
+      - "--no-autoupdate"
+      - "run"
+      - "--token"
+      - "${CF_TUNNEL_API_TOKEN}"
+    labels:
+      - traefik.enable=true

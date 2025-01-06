@@ -1,0 +1,23 @@
+services:
+  vpn:
+    image: qmcgaw/gluetun
+    container_name: vpn
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
+      - VPN_SERVICE_PROVIDER=mullvad
+      - VPN_TYPE=wireguard
+      # Wireguard:
+      - WIREGUARD_PRIVATE_KEY=
+      # Timezone for accurate log times
+      - TZ=UTC
+      # City
+      - SERVER_CITIES=Frankfurt
+      # Whitelist
+      # - FIREWALL_OUTBOUND_SUBNETS=10.0.0.0/8,192.168.0.0/16,172.16.0.0/12
+    labels:
+      - traefik.enable=false
